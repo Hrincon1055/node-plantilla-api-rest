@@ -9,6 +9,7 @@ class Server {
     this.app = express();
     this.port = process.env.PORT;
     this.usuarioPath = "/api/usuarios";
+    this.authPath = "/api/auth";
     // conectar a base de datos
     this.conectarDB();
     // Middlewares
@@ -28,6 +29,7 @@ class Server {
     this.app.use(express.static("public"));
   }
   routes() {
+    this.app.use(this.authPath, require("../router/auth"));
     this.app.use(this.usuarioPath, require("../router/usuarios"));
   }
   listem() {
